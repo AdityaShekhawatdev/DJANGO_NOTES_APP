@@ -53,5 +53,7 @@ Containerized the Django application using a lightweight `python:3.9-slim` base 
 - Prevents secrets and unnecessary files from being copied into the image
 
 ### Build image
+``` bash
 docker build -t django-notes-app .
+```
 
