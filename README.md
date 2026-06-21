@@ -43,7 +43,7 @@ Open http://127.0.0.1:8000/ to view it in your browser.
 ![preview-image](./preview-01.png)
 ![preview-image](./preview-02.png)
 
-### DevOps Part
+# DevOps Part
 
 ##  Docker
 Containerized the Django application using a lightweight `python:3.9-slim` base image.
