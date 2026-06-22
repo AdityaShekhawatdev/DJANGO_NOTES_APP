@@ -8,9 +8,6 @@ Simple notes app build with Django.
 - light/dark theme toggle
 - Responsive Design
 
-### Links
-
-[Source code](https://github.com/sam4web/django-notes-app) (Github)
 
 ### How to run it?
 
@@ -45,3 +42,18 @@ Open http://127.0.0.1:8000/ to view it in your browser.
 
 ![preview-image](./preview-01.png)
 ![preview-image](./preview-02.png)
+
+# DevOps Part
+
+##  Docker
+Containerized the Django application using a lightweight `python:3.9-slim` base image.
+
+- Used `.dockerignore` to exclude `.venv/`, `db.sqlite3`, `.git/`, and `.env` files
+- Reduces Docker build context size significantly
+- Prevents secrets and unnecessary files from being copied into the image
+
+### Build image
+``` bash
+docker build -t django-notes-app .
+```
+
