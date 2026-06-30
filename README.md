@@ -57,3 +57,35 @@ Containerized the Django application using a lightweight `python:3.9-slim` base 
 docker build -t django-notes-app .
 ```
 
+##  Docker Compose
+
+Connected Django app with PostgreSQL database using Docker Compose.
+Used `.env` file to store database credentials securely.
+
+**Services:**
+- `notes-app` — Django application container
+- `django-db` — PostgreSQL 17.4 database container
+
+**Key Decisions:**
+- Used `healthcheck` on PostgreSQL so Django waits for DB to be ready
+- Used named volume `postgres_data` for data persistence
+- Credentials stored in `.env` file — never hardcoded
+
+**Run the app:**
+```bash
+# Clone the repo
+git clone https://github.com/AdityaShekhawatdev/DJANGO_NOTES_APP.git
+cd DJANGO_NOTES_APP
+
+# Create .env file
+cp .env.example .env
+
+# Start all containers
+docker compose up --build
+```
+
+**Access the app:**
+```
+http://localhost:8000
+```
+
