@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-notes
+spec:
+  replicas: {{ .Values.notesApp.replicaCount }}
+  selector:
+    matchLabels:
+      app: django-notes
+  template:
+    metadata:
+      labels:
+        app: django-notes
+    spec:
+      containers:
+        - name: django-notes
+          image: "{{ .Values.notesApp.image.repository }}:{{ .Values.notesApp.image.tag }}"
+          imagePullPolicy: {{ .Values.notesApp.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.notesApp.containerPort }}
+          env:
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: django-secret
+                  key: DB_NAME
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: django-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: django-secret
+                  key: DB_PASSWORD
+            - name: DB_HOST
+              value: postgres
+            - name: DB_PORT
+              value: "5432"

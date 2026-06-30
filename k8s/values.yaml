@@ -1,0 +1,38 @@
+djangoDB:
+  replicaCount: 1
+
+  image:
+    repository: postgres
+    tag: "17.4"
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 5432
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+
+
+notesApp:
+  replicaCount: 1
+
+  image:
+    repository: shekhawataditya/django-notes-app
+    tag: "latest"
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 80
+  containerPort: 8000
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
