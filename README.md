@@ -89,3 +89,68 @@ docker compose up --build
 http://localhost:8000
 ```
 
+#Kubernetes
+
+## Kubernetes with Helm
+
+Deployed the Django Notes App on Kubernetes using Helm charts for templating and Minikube for local development.
+
+### Architecture
+
+User (Browser)
+↓
+Nginx Ingress Controller
+↓
+Ingress Resource (django-notes.local)
+↓
+Django Service (ClusterIP)
+↓
+Django Pod
+↓
+PostgreSQL Service (ClusterIP)
+↓
+PostgreSQL Pod + PersistentVolume
+
+### Key Decisions
+- Used `ClusterIP` for Django and PostgreSQL — internal communication only
+- Used `Ingress` as single entry point for external traffic
+- DB credentials stored in Kubernetes `Secret` — never hardcoded
+- `PersistentVolumeClaim` for PostgreSQL data persistence
+- All configurable values externalized in `values.yaml`
+
+### Run Locally
+
+**Prerequisites:**
+- Minikube
+- Helm
+- kubectl
+
+```bash
+# Start Minikube
+minikube start
+
+# Enable Nginx Ingress
+minikube addons enable ingress
+
+# Deploy with Helm
+helm install django-notes ./k8s/helm/django-notes
+
+# Check pods are running
+kubectl get pods
+```
+
+**Access the app:**
+
+```bash
+# Start tunnel (keep this terminal open)
+minikube tunnel
+```
+
+Add this to your Windows hosts file (`C:\Windows\System32\drivers\etc\hosts`):  127.0.0.1   django-notes.local
+
+Open browser:  http://django-notes.local
+
+
+
+
+
