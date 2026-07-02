@@ -31,7 +31,7 @@ jobs:
                 sed -i 's/tag:.*/tag: ${{ github.sha }}/' k8s/values.yaml
                 git config user.email "github-actions@github.com"
                 git config user.name "GitHub Actions"
-                git add k8s/helm/django-notes/values.yaml
+                git add k8s/values.yaml
                 git commit -m "Update image tag to ${{ github.sha }}"
                 git push    
                  
