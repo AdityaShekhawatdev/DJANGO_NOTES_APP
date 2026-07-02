@@ -28,7 +28,7 @@ jobs:
              
             - name: Update Image Tag in values.yaml
               run: |
-                sed -i 's/tag:.*/tag: ${{ github.sha }}/' k8s/helm/django-notes/values.yaml
+                sed -i 's/tag:.*/tag: ${{ github.sha }}/' k8s/values.yaml
                 git config user.email "github-actions@github.com"
                 git config user.name "GitHub Actions"
                 git add k8s/helm/django-notes/values.yaml
