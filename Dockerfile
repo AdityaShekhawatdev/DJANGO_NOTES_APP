@@ -1,21 +1,37 @@
-FROM python:3.9
+# Builder stage
 
-WORKDIR /app/backend
+FROM python:3.12 AS builder
 
-COPY requirements.txt /app/backend
+WORKDIR /app
+
 RUN apt-get update \
-    && apt-get upgrade -y \
     && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 
-# Install app dependencies
-RUN pip install mysqlclient
+RUN python -m venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
+
+
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/backend
+# Final stage
+
+FROM python:3.12
+
+WORKDIR /app
+
+COPY --from=builder /opt/venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY . .
 
 EXPOSE 8000
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
-#RUN python manage.py migrate
-#RUN python manage.py makemigrations
+
+RUN python manage.py collectstatic --noinput
+
+CMD [ "gunicorn", "notesapp.wsgi:application", "--bind", "0.0.0.0:8000"]
