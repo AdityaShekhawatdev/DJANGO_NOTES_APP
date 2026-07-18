@@ -22,6 +22,15 @@ services:
     networks:
       - notes-app-nw
 
+  frontend:
+    build:
+      context: ./mynotes
+    container_name: frontend_con
+    expose:
+      - "3000"
+    networks:
+     - notes-app-nw
+
   nginx:
     build: ./nginx
     image: nginx
