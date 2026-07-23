@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+spec:
+  replicas: {{ .Values.django.replicaCount}}
+  selector:
+    matchLabels:
+      app: django-app
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+        - name: django-app
+          image: "{{ .Values.django.image.repository}}:{{ .Values.django.image.tag}}"
+          ports:
+            - containerPort: {{ .Values.django.port}}
+          env:
+            - name: DB_NAME
+              value: {{ .Values.django.env.DB_NAME | quote }}
+            - name: DB_HOST
+              value: {{ .Values.django.env.DB_HOST | quote }}
+            - name: DB_PORT
+              value: {{ .Values.django.env.DB_PORT | quote }}          

@@ -1,0 +1,57 @@
+django:
+  replicaCount: 1
+  image: 
+    repository: shekhawataditya/django_app
+    tag: "latest"
+    pullPolicy: Always
+  service:
+  type: ClusterIP
+  port: 8000
+  env:
+    DB_NAME: notesdb
+    DB_HOST: db-service
+    DB_PORT: "3360" 
+  resources:
+    limits:
+      cpu: 500m
+      memory: 256Mi
+    requests:
+      cpu: 250m
+      memory: 128Mi  
+         
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: shekhawataditya/notes_frontend
+    tag: "latest"
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 3000
+  resources:
+    limits:
+      cpu: 300m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 64Mi
+
+db:
+  image:
+    repository: mysql
+    tag: "8.0.32"
+    pullPolicy: IfNotPresent
+  service:
+    port: 3306
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  storage: 1Gi
+
+     
+
