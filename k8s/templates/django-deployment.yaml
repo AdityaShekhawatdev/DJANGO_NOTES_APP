@@ -17,10 +17,18 @@ spec:
           image: "{{ .Values.django.image.repository}}:{{ .Values.django.image.tag}}"
           ports:
             - containerPort: {{ .Values.django.port}}
+          pullPolicy: {{ .Values.django.image.pullPolicy}}  
           env:
             - name: DB_NAME
               value: {{ .Values.django.env.DB_NAME | quote }}
             - name: DB_HOST
               value: {{ .Values.django.env.DB_HOST | quote }}
             - name: DB_PORT
-              value: {{ .Values.django.env.DB_PORT | quote }}          
+              value: {{ .Values.django.env.DB_PORT | quote }}    
+          resources:
+            requests: 
+              cpu: {{ .Values.django.resources.requests.cpu}}
+              memory: {{ .Values.django.resources.requests.memory}} 
+            limits:
+              cpu: {{ .Values.django.resources.limits.cpu}}
+              memory: {{ .Values.django.resources.limits.memory}}          

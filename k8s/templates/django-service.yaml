@@ -6,6 +6,6 @@ spec:
   selector:
     app: django-app
   ports:
-    port: {{ .Values.django.port}}
-    targetPort: {{ .Values.django.port}}    
-    type: ClusterIP  
+    port: {{ .Values.django.service.port}}
+    targetPort: {{ .Values.django.service.port}}    
+    type: {{ .Values.django.service.type}} 

@@ -5,8 +5,8 @@ django:
     tag: "latest"
     pullPolicy: Always
   service:
-  type: ClusterIP
-  port: 8000
+    type: ClusterIP
+    port: 8000
   env:
     DB_NAME: notesdb
     DB_HOST: db-service
@@ -38,11 +38,13 @@ frontend:
       memory: 64Mi
 
 db:
+  replicaCount: 1
   image:
     repository: mysql
     tag: "8.0.32"
     pullPolicy: IfNotPresent
   service:
+    type: ClusterIP
     port: 3306
   resources:
     limits:
