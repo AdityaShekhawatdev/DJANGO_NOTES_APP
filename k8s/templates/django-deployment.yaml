@@ -16,8 +16,8 @@ spec:
         - name: django-app
           image: "{{ .Values.django.image.repository}}:{{ .Values.django.image.tag}}"
           ports:
-            - containerPort: {{ .Values.django.port}}
-          pullPolicy: {{ .Values.django.image.pullPolicy}}  
+            - containerPort: {{ .Values.django.service.port}}
+          imagePullPolicy: {{ .Values.django.image.pullPolicy}}  
           env:
             - name: DB_NAME
               value: {{ .Values.django.env.DB_NAME | quote }}

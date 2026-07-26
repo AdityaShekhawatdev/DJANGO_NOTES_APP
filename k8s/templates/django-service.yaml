@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: django-app-service
 spec:
+  type: {{ .Values.django.service.type }}
   selector:
     app: django-app
   ports:
-    port: {{ .Values.django.service.port}}
-    targetPort: {{ .Values.django.service.port}}    
-    type: {{ .Values.django.service.type}} 
+  - port: {{ .Values.django.service.port }}
+    targetPort: {{ .Values.django.service.port }}

@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: db-app-service
 spec:
+  type: {{ .Values.db.service.type}} 
   selector:
     app: db-app
   ports:
-    port: {{ .Values.db.service.port}}
+  - port: {{ .Values.db.service.port}}
     targetPort: {{ .Values.db.service.port}}    
-    type: {{ .Values.db.service.type}} 

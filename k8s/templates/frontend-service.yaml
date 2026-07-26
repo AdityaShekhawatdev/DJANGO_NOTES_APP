@@ -3,9 +3,9 @@ kind: Service
 metadata:
   name: frontend-app-service
 spec:
+  type: {{ .Values.frontend.service.type }}
   selector:
     app: frontend-app
   ports:
-    port: {{ .Values.frontend.service.port}}
-    targetPort: {{ .Values.frontend.service.port}}
-    type: {{ .Values.frontend.service.type}}  
+  - port: {{ .Values.frontend.service.port }}
+    targetPort: {{ .Values.frontend.service.port }}
