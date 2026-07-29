@@ -2,32 +2,32 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: notes-app-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  # annotations:
+  #   nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
   # - host: notes-app.local
-    http:
+   - http:
       paths:
       - path: /api
         pathType: Prefix
         backend:
           service:
-            name: django-service
+            name: django-app-service
             port:
               number: {{ .Values.django.service.port }}
       - path: /admin
         pathType: Prefix
         backend:
           service:
-            name: django-service
+            name: django-app-service
             port:
               number: {{ .Values.django.service.port }}
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: frontend-service
+            name: frontend-app-service
             port:
               number: {{ .Values.frontend.service.port }}
