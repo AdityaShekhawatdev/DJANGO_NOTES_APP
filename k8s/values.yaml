@@ -9,8 +9,10 @@ django:
     port: 8000
   env:
     DB_NAME: notesdb
-    DB_HOST: db-service
-    DB_PORT: "3360" 
+    DB_HOST: db-app-service
+    DB_PORT: "3306" 
+    DB_USER: notesuser
+    DB_PASSWORD: notespass
   resources:
     limits:
       cpu: 500m
